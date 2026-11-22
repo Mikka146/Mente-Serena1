@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Iniciar sesión — Mente Serena</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/mente_serena.css"/>
+<link rel="stylesheet" href="../css/auth.css"/>
+</head>
+<body>
+
+<div id="auth-page" class="auth-page">
+
+  <!-- Formulario -->
+  <section class="auth-form-side">
+    <a class="auth-logo" href="index.html" aria-label="Mente Serena, ir al inicio">
+      <svg viewBox="0 0 54 54" fill="none" aria-hidden="true">
+          <circle cx="27" cy="27" r="26" stroke="#1c1c1c" stroke-width="1.5" fill="#A8E6CF"/>
+          <path d="M27 38C27 38 14 30 14 20C14 15.6 17.6 12 22 12C24.4 12 26.6 13.1 27 15C27.4 13.1 29.6 12 32 12C36.4 12 40 15.6 40 20C40 30 27 38 27 38Z" fill="#F8C8DC" stroke="#1c1c1c" stroke-width="1.5"/>
+        </svg>
+      <span>Mente <em>Serena</em></span>
+    </a>
+
+    <div class="auth-form-wrap">
+
+      <!-- ══════════════ PESTAÑAS ══════════════ -->
+      <div class="auth-tabs" id="auth-tabs">
+        <button class="auth-tab active" id="tab-login" onclick="mostrarPanel('login')">Iniciar sesión</button>
+        <button class="auth-tab" id="tab-registro" onclick="mostrarPanel('registro')">Crear cuenta</button>
+      </div>
+
+      <!-- ══════════════ LOGIN ══════════════ -->
+      <div class="auth-panel active" id="panel-login">
+        <h1 class="auth-title">¡Qué bueno verte <em>de nuevo</em>!</h1>
+        <p class="auth-sub" id="brand-sub">Ingresá para reservar tu turno</p>
+        <div class="form-group">
+          <label for="login-usuario">Usuario o correo</label>
+          <input type="text" id="login-usuario" placeholder="Tu usuario o correo" autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label for="login-password">Contraseña</label>
+          <input type="password" id="login-password" placeholder="Tu contraseña" autocomplete="current-password"
+                 onkeydown="if(event.key==='Enter') hacerLogin()">
+        </div>
+        <button class="link-btn link-btn-right" onclick="mostrarPanel('recuperar')">¿Olvidaste tu contraseña?</button>
+        <button class="auth-btn" onclick="hacerLogin()">Ingresar</button>
+        <div class="alert" id="alert-login"></div>
+        <p class="auth-switch">¿No tenés cuenta? <button class="link-btn" onclick="mostrarPanel('registro')">Registrate</button></p>
+      </div>
+
+      <!-- ══════════════ REGISTRO ══════════════ -->
+      <div class="auth-panel" id="panel-registro">
+        <h1 class="auth-title">Creá tu <em>cuenta</em></h1>
+        <p class="auth-sub">Un minuto y ya podés reservar tus turnos.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="reg-nombre">Nombre</label>
+            <input type="text" id="reg-nombre" placeholder="Tu nombre" maxlength="40">
+          </div>
+          <div class="form-group">
+            <label for="reg-apellido">Apellido</label>
+            <input type="text" id="reg-apellido" placeholder="Tu apellido" maxlength="40">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="reg-usuario">Usuario</label>
+          <input type="text" id="reg-usuario" placeholder="Elegí un nombre de usuario" maxlength="30" autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label for="reg-correo">Correo electrónico</label>
+          <input type="email" id="reg-correo" placeholder="tu@correo.com" autocomplete="email">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="reg-password">Contraseña</label>
+            <input type="password" id="reg-password" placeholder="Mín. 6 caracteres" autocomplete="new-password">
+          </div>
+          <div class="form-group">
+            <label for="reg-password2">Confirmar contraseña</label>
+            <input type="password" id="reg-password2" placeholder="Repetila" autocomplete="new-password"
+                   onkeydown="if(event.key==='Enter') hacerRegistro()">
+          </div>
+        </div>
+        <button class="auth-btn" onclick="hacerRegistro()">Crear cuenta</button>
+        <div class="alert" id="alert-registro"></div>
+        <p class="auth-switch">¿Ya tenés cuenta? <button class="link-btn" onclick="mostrarPanel('login')">Iniciá sesión</button></p>
+      </div>
+
+      <!-- ══════════════ RECUPERAR CONTRASEÑA ══════════════ -->
+      <div class="auth-panel" id="panel-recuperar">
+        <h1 class="auth-title">Recuperá tu <em>contraseña</em></h1>
+
+        <div id="recuperar-paso1">
+          <p class="auth-sub">Ingresá tu usuario o correo y te ayudamos a definir una nueva contraseña.</p>
+          <div class="form-group">
+            <label for="rec-usuario">Usuario o correo</label>
+            <input type="text" id="rec-usuario" placeholder="Tu usuario o correo"
+                   onkeydown="if(event.key==='Enter') buscarCuentaRecuperar()">
+          </div>
+          <button class="auth-btn" onclick="buscarCuentaRecuperar()">Buscar cuenta</button>
+        </div>
+
+        <div id="recuperar-paso2" class="app-hidden">
+          <p class="auth-sub">Encontramos tu cuenta, <strong id="rec-nombre-hallado"></strong>. Elegí una nueva contraseña.</p>
+          <div class="form-group">
+            <label for="rec-password">Nueva contraseña</label>
+            <input type="password" id="rec-password" placeholder="Mínimo 6 caracteres">
+          </div>
+          <div class="form-group">
+            <label for="rec-password2">Confirmar nueva contraseña</label>
+            <input type="password" id="rec-password2" placeholder="Repetila"
+                   onkeydown="if(event.key==='Enter') guardarNuevaPassword()">
+          </div>
+          <button class="auth-btn" onclick="guardarNuevaPassword()">Guardar nueva contraseña</button>
+        </div>
+
+        <div class="alert" id="alert-recuperar"></div>
+        <p class="auth-switch"><button class="link-btn" onclick="mostrarPanel('login')">← Volver a iniciar sesión</button></p>
+      </div>
+
+      <div class="auth-or">o</div>
+      <button class="auth-btn-ghost" onclick="window.location.href='index.html'">← Volver al sitio sin iniciar sesión</button>
+    </div>
+  </section>
+
+
+</div>
+
+<script src="../js/common.js"></script>
+<script src="../js/login.js"></script>
+<script src="../js/auth.js"></script>
+</body>
+</html>

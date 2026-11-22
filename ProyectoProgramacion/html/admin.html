@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Panel Profesional — Mente Serena</title>
+<link rel="icon" type="image/svg+xml" href="../img/logo-corazon.svg"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/mente_serena.css"/>
+<link rel="stylesheet" href="../css/turnos.css"/>
+<link rel="stylesheet" href="../css/auth.css"/>
+<link rel="stylesheet" href="../css/pacientes.css"/>
+<link rel="stylesheet" href="../css/historias.css"/>
+</head>
+<body>
+
+<!-- ═══════════════ LOGIN PROFESIONAL (PIN) ═══════════════ -->
+<div id="app-login-admin" class="auth-page auth-page--admin">
+
+  <!-- Formulario -->
+  <section class="auth-form-side">
+    <a class="auth-logo" href="index.html" aria-label="Mente Serena, ir al sitio">
+      <img src="../img/logo-corazon.svg" alt="" aria-hidden="true"/>
+      <span>Mente <em>Serena</em></span>
+    </a>
+
+    <div class="auth-form-wrap">
+      <div class="auth-tag">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+        Acceso psicólogas
+      </div>
+      <h1 class="auth-title">Panel <em>Profesional</em></h1>
+      <p class="auth-sub">Acceso exclusivo para el equipo de Mente Serena.</p>
+
+      <form id="admin-form" onsubmit="return loginAdmin(event)" novalidate autocomplete="on">
+        <div class="form-group">
+          <label for="admin-name">Nombre y apellido</label>
+          <select id="admin-name" autocomplete="username">
+            <option value="">— Seleccioná tu nombre —</option>
+            <option value="Daiana Bazan">Daiana Bazan</option>
+            <option value="Micaela Alvarado">Micaela Alvarado</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="admin-pass" id="admin-pass-label">Clave de acceso</label>
+          <input type="password" id="admin-pass" placeholder="Tu clave" autocomplete="current-password" maxlength="128">
+        </div>
+        <div class="form-group" id="admin-confirm-group" hidden>
+          <label for="admin-pass2">Repetí la clave</label>
+          <input type="password" id="admin-pass2" placeholder="Repetila" autocomplete="new-password" maxlength="128">
+        </div>
+        <p class="auth-sub" id="admin-first-note" hidden style="font-size:.8rem;margin:-4px 0 12px">
+          Es tu primer ingreso en este dispositivo: elegí una clave personal. No la compartas.
+        </p>
+        <button class="auth-btn" type="submit" id="admin-submit">Ingresar al panel</button>
+        <div class="alert" id="alert-admin" role="alert" aria-live="polite"></div>
+      </form>
+
+      <div class="auth-or">o</div>
+      <button class="auth-btn-ghost" onclick="window.location.href='index.html'">← Volver al sitio</button>
+    </div>
+  </section>
+
+
+  <!-- Pantalla de transición -->
+  <div class="welcome-screen admin-mode" id="welcome-screen">
+    <div class="welcome-icon" id="welcome-icon">
+      <svg width="32" height="32" viewBox="0 0 54 54" fill="none">
+        <path d="M27 44C27 44 10 34 10 20C10 14.5 14.5 10 20 10C23.2 10 26 11.6 27 14C28 11.6 30.8 10 34 10C39.5 10 44 14.5 44 20C44 34 27 44 27 44Z" fill="#f8c8dc" opacity="0.8"/>
+      </svg>
+    </div>
+    <h2 id="welcome-title">¡Hola!</h2>
+    <p id="welcome-msg">Accediste al panel profesional.</p>
+  </div>
+</div>
+
+<!-- ═══════════════ DASHBOARD PROFESIONAL ═══════════════ -->
+<div id="app-admin" class="app-hidden">
+
+  <nav class="a-nav">
+    <div class="a-brand">
+      <div class="a-brand-icon">
+        <img src="../img/logo-corazon.svg" alt="" aria-hidden="true"/>
+      </div>
+      <span class="a-brand-text">Mente <em>Serena</em></span>
+      <span class="admin-badge">⭐ Panel Profesional</span>
+    </div>
+    <div class="a-nav-right">
+      <span class="a-username" id="a-username"></span>
+      <button class="a-logout" onclick="cerrarSesionAdmin()">Salir</button>
+    </div>
+  </nav>
+
+  <div class="tabs-nav">
+    <button class="tab-btn active" onclick="adminGoTo('a-turnos',this)"> Turnos</button>
+    <button class="tab-btn" onclick="adminGoTo('a-pacientes',this)"> Pacientes</button>
+    <button class="tab-btn tab-btn-hc" id="tab-historias" onclick="adminGoTo('a-historias',this)">📋 Historias Clínicas</button>
+  </div>
+
+  <section class="a-section active" id="a-turnos">
+    <div class="a-section-title">
+      <h2>Turnos <em>Reservados</em></h2>
+      <p>Gestión de agenda · Hora Argentina en tiempo real</p>
+    </div>
+    <div class="turnos-admin" id="turnos-admin-content">
+      <p class="turnos-cargando">Cargando agenda…</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       §PACIENTES — Carga de pacientes, datos y sesiones.
+       Todo el contenido lo dibuja renderPacientes() (js/pacientes.js)
+       ══════════════════════════════════════════════════════ -->
+  <section class="a-section" id="a-pacientes">
+    <div class="a-section-title">
+      <h2>Mis <em>Pacientes</em></h2>
+      <p>Cargá sus datos y seguí cuántas sesiones hicieron · Guardado en este dispositivo</p>
+    </div>
+    <div id="pac-root"></div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       §HISTORIAS CLÍNICAS — listado con buscador y estados.
+       Todo el contenido lo dibuja renderHistorias() (js/historias.js)
+       ══════════════════════════════════════════════════════ -->
+  <section class="a-section" id="a-historias">
+    <div class="a-section-title">
+      <h2>Historias <em>Clínicas</em></h2>
+      <p>Consultá o creá la historia clínica de cada paciente · Información confidencial</p>
+    </div>
+    <div id="hcx-root"></div>
+  </section>
+
+  <footer>
+    <span class="footer-brand">Mente <em>Serena</em> — Panel Profesional</span>
+    <strong>Lic. Daiana Bazan &amp; Lic. Micaela Alvarado</strong><br>
+    Psicólogas · Bella Vista, Tucumán · © 2025 Mente Serena
+  </footer>
+</div>
+
+<script src="../js/common.js"></script>
+<script src="../js/turnos.js"></script>
+<script src="../js/admin.js"></script>
+<script src="../js/pacientes.js"></script>
+<script src="../js/historias.js"></script>
+<script src="../js/auth.js"></script>
+</body>
+</html>

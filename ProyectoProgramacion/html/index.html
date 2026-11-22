@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mente Serena</title>
+<link rel="icon" type="image/svg+xml" href="../img/logo-corazon.svg"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/mente_serena.css"/>
+<link rel="stylesheet" href="../css/turnos.css"/>
+</head>
+<body>
+
+<!-- ═══════════════ SITIO PÚBLICO (USUARIO) ═══════════════
+     Pantalla única de entrada del sistema: se ve completa sin
+     registrarse ni iniciar sesión. Sólo Turnos pide
+     login (ver §GATE en mente_serena.js), a través de login.html.
+     El acceso profesional vive aparte, en admin.html.
+     ══════════════════════════════════════════════════════════ -->
+<div id="app-usuario">
+
+  <div id="welcome-splash">
+    <img class="splash-logo" src="../img/logo-corazon.svg" alt="" aria-hidden="true"/>
+    <div class="splash-text">¡Bienvenido!</div>
+    <div class="splash-sub">Tu espacio de bienestar mental</div>
+  </div>
+
+  <div class="particles" id="particles"></div>
+
+  <header class="u-header">
+    <div class="u-logo"><img class="ms-logo" src="../img/logo-corazon.svg" alt="" aria-hidden="true"/><h1>Mente Serena</h1></div>
+    <div class="u-header-right">
+      <!-- Se ve cuando HAY sesión iniciada -->
+      <div class="user-chip app-hidden" id="user-chip">
+        <span class="user-avatar" id="user-avatar" aria-hidden="true"></span>
+        <span class="user-name" id="user-nombre"></span>
+      </div>
+      <button class="btn-logout app-hidden" id="btn-salir-user" onclick="cerrarSesion()" aria-label="Cerrar sesión" title="Cerrar sesión">
+        <svg class="btn-logout-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+        <span class="btn-logout-txt">Salir</span>
+      </button>
+      <!-- Se ve cuando NO hay sesión iniciada -->
+      <button class="btn-login-top" id="btn-login-top" onclick="irALogin()">Iniciar sesión</button>
+    </div>
+  </header>
+
+  <nav class="u-nav">
+    <a href="#" class="nav-link active" data-section="inicio"> Inicio</a>
+    <a href="#" class="nav-link" data-section="nosotros"> Nosotros</a>
+    <a href="#" class="nav-link" data-section="turnos"> Turnos</a>
+  </nav>
+
+  <main class="u-main">
+
+    <div class="u-section active" id="sec-inicio">
+      <!-- ══════════════════════════════════════════════════════════
+           §HERO — Portada a pantalla completa (rompe el ancho de
+           .u-main a propósito, ver .hero-split en mente_serena.css)
+           Ilustración propia inspirada en el moodboard del equipo:
+           silueta con cabello suelto lleno de flores, hojas, notas
+           musicales y corazones, en la paleta de marca del sitio.
+           ══════════════════════════════════════════════════════════ -->
+      <!-- ══════════════════════════════════════════════════════════
+           §HERO — Carrusel a pantalla completa (ver js/hero_carrusel.js
+           y el bloque §HERO-CARRUSEL al final de mente_serena.css).
+           Imágenes: img/carrusel1.jpg … carrusel5.jpg
+           ══════════════════════════════════════════════════════════ -->
+      <div class="hero-split hero-carousel" id="hero-carousel" role="region" aria-roledescription="carrusel" aria-label="Contenido destacado">
+
+        <div class="hero-illustration">
+          <div class="hero-track">
+            <div class="hero-slide active" role="group" aria-roledescription="diapositiva" aria-label="1 de 5">
+              <picture><source media="(min-width: 861px)" srcset="../img/carrusel1-wide.jpg"/><img class="hero-slide-bg" src="../img/carrusel1.jpg" alt="" aria-hidden="true"/></picture>
+              <picture><source media="(min-width: 861px)" srcset="../img/carrusel1-wide.jpg"/><img class="hero-slide-img" src="../img/carrusel1.jpg" alt="¿Por qué nos hablamos así? Nuestro cerebro genera asociaciones desde pequeños; observá tu reacción natural ante ciertas palabras"/></picture>
+            </div>
+            <div class="hero-slide" role="group" aria-roledescription="diapositiva" aria-label="2 de 5">
+              <picture><source media="(min-width: 861px)" srcset="../img/carrusel2-wide.jpg"/><img class="hero-slide-bg" src="../img/carrusel2.jpg" alt="" aria-hidden="true"/></picture>
+              <picture><source media="(min-width: 861px)" srcset="../img/carrusel2-wide.jpg"/><img class="hero-slide-img" src="../img/carrusel2.jpg" alt="¿De dónde viene este miedo? El mandato cultural, la presión social, las experiencias afectivas previas, la autoestima y las expectativas no cumplidas"/></picture>
+            </div>
+            <div class="hero-slide" role="group" aria-roledescription="diapositiva" aria-label="3 de 5">
+              <picture><source media="(min-width: 861px)" srcset="../img/carrusel3-wide.jpg"/><img class="hero-slide-bg" src="../img/carrusel3.jpg" alt="" aria-hidden="true"/></picture>
+              <picture><source media="(min-width: 861px)" srcset="../img/carrusel3-wide.jpg"/><img class="hero-slide-img" src="../img/carrusel3.jpg" alt="¿Te has parado a pensar en cómo te hablas a ti mismo?"/></picture>
+            </div>
+            <div class="hero-slide" role="group" aria-roledescription="diapositiva" aria-label="4 de 5">
+              <picture><source media="(min-width: 861px)" srcset="../img/carrusel5-wide.jpg"/><img class="hero-slide-bg" src="../img/carrusel5.jpg" alt="" aria-hidden="true"/></picture>
+              <picture><source media="(min-width: 861px)" srcset="../img/carrusel5-wide.jpg"/><img class="hero-slide-img" src="../img/carrusel5.jpg" alt="¿Y si nadie me elige nunca? Hablemos de anuptafobia?"/></picture>
+            </div>
+            <div class="hero-slide" role="group" aria-roledescription="diapositiva" aria-label="5 de 5">
+              <picture><source media="(min-width: 861px)" srcset="../img/carrusel4-wide.jpg"/><img class="hero-slide-bg" src="../img/carrusel4.jpg" alt="" aria-hidden="true"/></picture>
+              <picture><source media="(min-width: 861px)" srcset="../img/carrusel4-wide.jpg"/><img class="hero-slide-img" src="../img/carrusel4.jpg" alt="Este lenguaje no es inocente: cuestionemos las palabras con las que nos hemos criado"/></picture>
+            </div>
+          </div>
+
+          <button class="hero-car-nav prev" type="button" aria-label="Imagen anterior">‹</button>
+          <button class="hero-car-nav next" type="button" aria-label="Imagen siguiente">›</button>
+          <div class="hero-car-dots"><button class="hero-car-dot active" type="button" aria-label="Ir a la imagen 1"></button><button class="hero-car-dot" type="button" aria-label="Ir a la imagen 2"></button><button class="hero-car-dot" type="button" aria-label="Ir a la imagen 3"></button><button class="hero-car-dot" type="button" aria-label="Ir a la imagen 4"></button><button class="hero-car-dot" type="button" aria-label="Ir a la imagen 5"></button></div>
+
+          <!-- ══ §WHATSAPP — botón flotante de Consultas, superpuesto sobre la imagen
+               (abajo a la derecha de Inicio). Reemplazá el número en el href:
+               formato internacional sin "+" ni espacios, ej. 5493811234567. ══ -->
+          <a class="hero-wsp" href="https://wa.me/5493810000000?text=Hola%2C%20quisiera%20hacer%20una%20consulta" target="_blank" rel="noopener noreferrer" aria-label="Enviar una consulta por WhatsApp" title="Consultas por WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            <span>Consultas</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="u-section" id="sec-nosotros">
+      <!-- ══════════════════════════════════════════════════════════
+           §NOSOTROS — Layout editorial full-bleed (ver .nos-page en
+           mente_serena.css): presentación + acordeón, 4 columnas con
+           flores, imagen panorámica y cierre con llamado a la acción.
+           ══════════════════════════════════════════════════════════ -->
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <!-- Cuatro flores distintas (una por columna de .nos-cols): 6 pétalos redondos,
+             margarita, flor de cerezo y dalia. Paleta de marca + trazo tinta. -->
+        <symbol id="nos-flor-1" viewBox="0 0 100 100">
+          <g stroke="#1c1c1c" stroke-width="2" stroke-linejoin="round">
+            <g fill="#A8E6CF">
+              <circle cx="50" cy="22" r="17"/><circle cx="76" cy="37" r="17"/><circle cx="76" cy="63" r="17"/>
+              <circle cx="50" cy="78" r="17"/><circle cx="24" cy="63" r="17"/><circle cx="24" cy="37" r="17"/>
+            </g>
+            <circle cx="50" cy="50" r="12" fill="#F8C8DC"/>
+          </g>
+        </symbol>
+        <symbol id="nos-flor-2" viewBox="0 0 100 100">
+          <g stroke="#1c1c1c" stroke-width="2" stroke-linejoin="round">
+            <g fill="#F8C8DC">
+            <g transform="rotate(0.0 50 50)"><ellipse cx="50" cy="25" rx="7.5" ry="19"/></g>
+            <g transform="rotate(36.0 50 50)"><ellipse cx="50" cy="25" rx="7.5" ry="19"/></g>
+            <g transform="rotate(72.0 50 50)"><ellipse cx="50" cy="25" rx="7.5" ry="19"/></g>
+            <g transform="rotate(108.0 50 50)"><ellipse cx="50" cy="25" rx="7.5" ry="19"/></g>
+            <g transform="rotate(144.0 50 50)"><ellipse cx="50" cy="25" rx="7.5" ry="19"/></g>
+            <g transform="rotate(180.0 50 50)"><ellipse cx="50" cy="25" rx="7.5" ry="19"/></g>
+            <g transform="rotate(216.0 50 50)"><ellipse cx="50" cy="25" rx="7.5" ry="19"/></g>
+            <g transform="rotate(252.0 50 50)"><ellipse cx="50" cy="25" rx="7.5" ry="19"/></g>
+            <g transform="rotate(288.0 50 50)"><ellipse cx="50" cy="25" rx="7.5" ry="19"/></g>
+            <g transform="rotate(324.0 50 50)"><ellipse cx="50" cy="25" rx="7.5" ry="19"/></g>
+            </g>
+            <circle cx="50" cy="50" r="13" fill="#A8E6CF"/>
+          </g>
+        </symbol>
+        <symbol id="nos-flor-3" viewBox="0 0 100 100">
+          <g stroke="#1c1c1c" stroke-width="2" stroke-linejoin="round">
+            <g fill="#A8E6CF">
+            <g transform="rotate(0.0 50 50)"><path d="M50 50C33 45 29 23 39 13C44 8 48 11 50 16C52 11 56 8 61 13C71 23 67 45 50 50Z"/></g>
+            <g transform="rotate(72.0 50 50)"><path d="M50 50C33 45 29 23 39 13C44 8 48 11 50 16C52 11 56 8 61 13C71 23 67 45 50 50Z"/></g>
+            <g transform="rotate(144.0 50 50)"><path d="M50 50C33 45 29 23 39 13C44 8 48 11 50 16C52 11 56 8 61 13C71 23 67 45 50 50Z"/></g>
+            <g transform="rotate(216.0 50 50)"><path d="M50 50C33 45 29 23 39 13C44 8 48 11 50 16C52 11 56 8 61 13C71 23 67 45 50 50Z"/></g>
+            <g transform="rotate(288.0 50 50)"><path d="M50 50C33 45 29 23 39 13C44 8 48 11 50 16C52 11 56 8 61 13C71 23 67 45 50 50Z"/></g>
+            </g>
+            <circle cx="50" cy="50" r="7" fill="#F8C8DC"/>
+          </g>
+        </symbol>
+        <symbol id="nos-flor-4" viewBox="0 0 100 100">
+          <g stroke="#1c1c1c" stroke-width="2" stroke-linejoin="round">
+            <g fill="#F8C8DC">
+            <g transform="rotate(0.0 50 50)"><path d="M50 50C39 38 41 20 50 5C59 20 61 38 50 50Z"/></g>
+            <g transform="rotate(45.0 50 50)"><path d="M50 50C39 38 41 20 50 5C59 20 61 38 50 50Z"/></g>
+            <g transform="rotate(90.0 50 50)"><path d="M50 50C39 38 41 20 50 5C59 20 61 38 50 50Z"/></g>
+            <g transform="rotate(135.0 50 50)"><path d="M50 50C39 38 41 20 50 5C59 20 61 38 50 50Z"/></g>
+            <g transform="rotate(180.0 50 50)"><path d="M50 50C39 38 41 20 50 5C59 20 61 38 50 50Z"/></g>
+            <g transform="rotate(225.0 50 50)"><path d="M50 50C39 38 41 20 50 5C59 20 61 38 50 50Z"/></g>
+            <g transform="rotate(270.0 50 50)"><path d="M50 50C39 38 41 20 50 5C59 20 61 38 50 50Z"/></g>
+            <g transform="rotate(315.0 50 50)"><path d="M50 50C39 38 41 20 50 5C59 20 61 38 50 50Z"/></g>
+            </g>
+            <g fill="#FCE4EE">
+            <g transform="rotate(22.5 50 50)"><path d="M50 50C44 43 45 34 50 26C55 34 56 43 50 50Z"/></g>
+            <g transform="rotate(67.5 50 50)"><path d="M50 50C44 43 45 34 50 26C55 34 56 43 50 50Z"/></g>
+            <g transform="rotate(112.5 50 50)"><path d="M50 50C44 43 45 34 50 26C55 34 56 43 50 50Z"/></g>
+            <g transform="rotate(157.5 50 50)"><path d="M50 50C44 43 45 34 50 26C55 34 56 43 50 50Z"/></g>
+            <g transform="rotate(202.5 50 50)"><path d="M50 50C44 43 45 34 50 26C55 34 56 43 50 50Z"/></g>
+            <g transform="rotate(247.5 50 50)"><path d="M50 50C44 43 45 34 50 26C55 34 56 43 50 50Z"/></g>
+            <g transform="rotate(292.5 50 50)"><path d="M50 50C44 43 45 34 50 26C55 34 56 43 50 50Z"/></g>
+            <g transform="rotate(337.5 50 50)"><path d="M50 50C44 43 45 34 50 26C55 34 56 43 50 50Z"/></g>
+            </g>
+            <circle cx="50" cy="50" r="7" fill="#A8E6CF"/>
+          </g>
+        </symbol>
+      </svg>
+
+      <div class="nos-page">
+
+        <!-- 1 · Presentación + acordeón -->
+        <div class="nos-intro">
+          <div class="nos-photo">
+            <img src="../img/1.jpg" alt="Ilustración de una joven pensativa con piezas de rompecabezas en el cabello"/>
+          </div>
+          <div class="nos-intro-copy">
+            <h2 class="nos-title">Hola,<br>somos Mente Serena</h2>
+            <p class="nos-lead">Somos un equipo comprometido con la salud mental. Nacimos para hacer el apoyo psicológico accesible, cálido y libre de estigmas, con la convicción de que cuidar la mente es tan importante como cuidar el cuerpo.</p>
+
+            <div class="nos-acc">
+              <details name="nos-acc" open>
+                <summary><span class="nos-acc-num">01</span> Nuestra misión<i class="nos-acc-icon" aria-hidden="true"></i></summary>
+                <p>Brindar un espacio seguro y empático donde cada persona trabaje su salud mental sin barreras.</p>
+              </details>
+              <details name="nos-acc">
+                <summary><span class="nos-acc-num">02</span> Nuestros valores<i class="nos-acc-icon" aria-hidden="true"></i></summary>
+                <p>Empatía, respeto, confidencialidad y compromiso guían cada acción que tomamos.</p>
+              </details>
+              <details name="nos-acc">
+                <summary><span class="nos-acc-num">03</span> Nuestro enfoque<i class="nos-acc-icon" aria-hidden="true"></i></summary>
+                <p>Trabajamos desde una perspectiva humana y profesional, adaptando la atención a cada persona.</p>
+              </details>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 · Cuatro columnas con flores -->
+        <div class="nos-cols">
+          <div class="nos-col">
+            <svg class="nos-flor" aria-hidden="true" focusable="false"><use href="#nos-flor-1"/></svg>
+            <h3>Origen</h3>
+            <ul>
+              <li>Somos de Bella Vista, Tucumán;</li>
+              <li>Profesionales apasionados por la salud mental;</li>
+              <li>Un espacio digital pensado para nuestra región.</li>
+            </ul>
+          </div>
+          <div class="nos-col">
+            <svg class="nos-flor" aria-hidden="true" focusable="false"><use href="#nos-flor-2"/></svg>
+            <h3>Barreras</h3>
+            <ul>
+              <li>La distancia;</li>
+              <li>Los horarios;</li>
+              <li>El no saber por dónde empezar.</li>
+            </ul>
+          </div>
+          <div class="nos-col">
+            <svg class="nos-flor" aria-hidden="true" focusable="false"><use href="#nos-flor-3"/></svg>
+            <h3>Herramientas</h3>
+            <ul>
+              <li>Turnos para reservar tu consulta;</li>
+              <li>Consultas por WhatsApp con el equipo;</li>
+            </ul>
+          </div>
+          <div class="nos-col">
+            <svg class="nos-flor" aria-hidden="true" focusable="false"><use href="#nos-flor-4"/></svg>
+            <h3>Comunidad</h3>
+            <ul>
+              <li>Contenido para cuidar tu bienestar;</li>
+              <li>Un lugar cálido y sin juicios.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 3 · Imagen panorámica con frase -->
+        <div class="nos-banner">
+          <img src="../img/hero-rompecabezas.jpg" alt=""/>
+          <blockquote>Si llegaste hasta aquí, ya diste el primer y más importante paso.</blockquote>
+        </div>
+
+        <!-- 4 · Cierre -->
+        <div class="nos-closing">
+          <h2 class="nos-title">Bienvenido<br>a casa</h2>
+          <div class="nos-closing-copy">
+            <p>Queremos derribar barreras para que todas las personas tengan acceso a ayuda profesional. Cuando estés lista o listo, acá vamos a estar.</p>
+            <div class="nos-closing-actions">
+              <button class="nos-btn" onclick="irASeccion('turnos')">Reservar un turno</button>
+              <span class="nos-loc">📍 Bella Vista, Tucumán, Argentina</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         §TURNOS — Módulo de reserva de turnos
+         El contenido es inyectado dinámicamente por Turnos.init()
+         al llamarse initTurnos() desde launchUsuario().
+         No modificar este div; el módulo lo puebla solo.
+         ══════════════════════════════════════════════════════════ -->
+    <div class="u-section" id="sec-turnos">
+      <!-- Turnos.init() inserta aquí el HTML del módulo -->
+    </div>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       §FOOTER — Franja de ayuda, marca + redes, navegación y contacto.
+       Las redes apuntan a la portada de cada plataforma: reemplazá cada
+       href por el perfil real del equipo (Instagram, Facebook, etc.).
+       ═══════════════════════════════════════════════════════════ -->
+  <footer class="u-footer">
+    <div class="ft-inner">
+
+      <div class="ft-help">
+        <span class="ft-help-ico" aria-hidden="true">💚</span>
+        <p><strong>¿Estás pasando un momento difícil?</strong> No estás solo/a. La línea nacional de salud mental atiende gratis, las 24 horas: <a href="tel:08009990091">0800-999-0091</a>.</p>
+      </div>
+
+      <div class="ft-grid">
+        <div class="ft-brand">
+          <div class="ft-logo"><img class="ms-logo ms-logo-ft" src="../img/logo-corazon.svg" alt="" aria-hidden="true"/> Mente <em>Serena</em></div>
+          <p>Un espacio cálido y sin juicios para cuidar tu salud mental. Acompañamos desde Bella Vista, Tucumán.</p>
+          <div class="ft-social" aria-label="Redes sociales">
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            
+            <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+            </a>
+            <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <nav class="ft-col" aria-label="Navegación del sitio">
+          <h4>Explorá</h4>
+          <button class="ft-link" onclick="irASeccion('inicio')">Inicio</button>
+          <button class="ft-link" onclick="irASeccion('nosotros')">Nosotros</button>
+          <button class="ft-link" onclick="irASeccion('turnos')">Turnos</button>
+        </nav>
+
+        <div class="ft-col">
+          <h4>Contacto</h4>
+          <p class="ft-loc">📍 Bella Vista, Tucumán, Argentina</p>
+          <p class="ft-note">Reservá tu turno o escribinos tu consulta por WhatsApp.</p>
+          <div class="ft-cta">
+            <button class="ft-btn ft-btn-fill" onclick="irASeccion('turnos')">Reservar turno</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ft-bottom">
+        <span>© <span id="ft-year">2026</span> Mente <em>Serena</em> · Bella Vista, Tucumán</span>
+        <span class="ft-bottom-right">
+          <button class="link-btn-footer" onclick="window.location.href='admin.html'">¿Sos profesional? Ingresá acá</button>
+          <button class="ft-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Volver arriba">↑ Volver arriba</button>
+        </span>
+      </div>
+
+    </div>
+  </footer>
+</div>
+
+<!-- jsPDF: usado por Turnos.comprobante() para generar el comprobante en PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="../js/common.js"></script>
+<script src="../js/mente_serena.js"></script>
+<script src="../js/hero_carrusel.js"></script>
+<script src="../js/turnos.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Historia Clínica — Mente Serena</title>
+<link rel="icon" type="image/svg+xml" href="../img/logo-corazon.svg"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/mente_serena.css"/>
+<link rel="stylesheet" href="../css/pacientes.css"/>
+<link rel="stylesheet" href="../css/historias.css"/>
+</head>
+<body>
+
+<!-- Misma estética que el panel profesional (el id aporta el fondo) -->
+<div id="app-admin">
+
+  <nav class="a-nav">
+    <div class="a-brand">
+      <div class="a-brand-icon"><img src="../img/logo-corazon.svg" alt="" aria-hidden="true"/></div>
+      <span class="a-brand-text">Mente <em>Serena</em></span>
+      <span class="admin-badge">Historia clínica</span>
+    </div>
+    <div class="a-nav-right">
+      <span class="a-username" id="hcd-user"></span>
+    </div>
+  </nav>
+
+  <main class="hcx-wrap">
+    <!-- Lo dibuja historia_detalle.js (sólo con sesión profesional activa) -->
+    <div id="hcd-root" aria-live="polite"></div>
+  </main>
+</div>
+
+<!-- Versión imprimible: se completa sólo al confirmar la impresión y se vacía después -->
+<div id="hcx-print" aria-hidden="true"></div>
+
+<script src="../js/common.js"></script>
+<script src="../js/pacientes.js"></script>
+<script src="../js/historias.js"></script>
+<script src="../js/historia_detalle.js"></script>
+</body>
+</html>

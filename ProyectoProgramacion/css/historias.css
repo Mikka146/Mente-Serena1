@@ -1,0 +1,176 @@
+/* ============================================================
+   HISTORIAS.CSS — Mente Serena
+   Módulo de Historias Clínicas Psicológicas.
+   Reutiliza variables y componentes de mente_serena.css y
+   pacientes.css (pac-card, pac-toolbar, pac-f, pac-mini, cm-chip,
+   btn-hc-*, alert, feed-empty). Prefijo propio: hcx-
+   ============================================================ */
+
+#hcx-root { max-width: 900px; margin: 0 auto; }
+.hcx-wrap { max-width: 980px; margin: 0 auto; padding: 28px 20px 60px; }
+
+/* ── Insignias de estado ──────────────────────────────────── */
+.hcx-badge {
+  display: inline-flex; align-items: center; gap: 5px; padding: 2px 10px; border-radius: 50px;
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.04em; white-space: nowrap;
+}
+.hcx-badge::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.hcx-badge.activa    { background: rgba(168,230,207,0.34); color: #14603f; }
+.hcx-badge.cerrada   { background: rgba(28,28,28,0.08);    color: var(--text-mid); }
+.hcx-badge.sin       { background: rgba(248,200,220,0.4);  color: #8a3a5a; }
+.hcx-badge.reservada { background: rgba(28,28,28,0.05);    color: var(--text-s); }
+.hcx-badge.anulada   { background: rgba(194,24,91,0.1);    color: var(--rosa-d); }
+
+.hcx-row .pac-ses-n { font-size: 1.6rem; }
+.hcx-row-act { flex-shrink: 0; }
+.hcx-pie { text-align: center; margin-top: 22px; font-size: 0.76rem; color: var(--text-s); }
+.hcx-link {
+  background: none; border: none; cursor: pointer; font: inherit; color: var(--text-mid);
+  text-decoration: underline; text-decoration-color: var(--sage); padding: 0;
+}
+
+/* ── Aviso de confidencialidad ────────────────────────────── */
+.hcx-aviso {
+  display: flex; gap: 10px; align-items: flex-start; padding: 11px 16px; margin: 0 0 18px;
+  border-radius: 14px; font-size: 0.78rem; color: var(--text-mid);
+  background: rgba(255,255,255,0.8); border: 1px dashed rgba(168,230,207,0.9);
+}
+
+/* ── Cabecera de la historia ──────────────────────────────── */
+.hcx-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+.hcx-volver { text-decoration: none; display: inline-block; }
+.hcx-head {
+  display: flex; align-items: center; gap: 18px; flex-wrap: wrap; padding: 20px 24px; margin-bottom: 16px;
+  background: rgba(255,255,255,0.92); border: 1px solid rgba(168,230,207,0.36);
+  border-radius: 20px; box-shadow: 0 4px 18px rgba(28,28,28,0.06);
+}
+.hcx-head-id { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 240px; }
+.hcx-head h1 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 400; line-height: 1.15; color: var(--text-dk); }
+.hcx-head-meta { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 6px; font-size: 0.78rem; color: var(--text-s); align-items: center; }
+.hcx-head-act { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ── Pestañas ─────────────────────────────────────────────── */
+.hcx-tabs { display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px 12px; margin-bottom: 6px; scrollbar-width: thin; }
+
+/* ── Tarjetas ─────────────────────────────────────────────── */
+.hcx-card {
+  padding: 20px 24px; margin-bottom: 16px; background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(168,230,207,0.32); border-radius: 18px; box-shadow: 0 2px 12px rgba(28,28,28,0.05);
+  animation: fadeUp 0.25s ease both;
+}
+.hcx-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid rgba(168,230,207,0.4); }
+.hcx-card-head h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--ink); }
+.hcx-card-head .btn-hc-open { flex-shrink: 0; }
+.hcx-dl { display: grid; grid-template-columns: 190px 1fr; gap: 10px 14px; font-size: 0.88rem; }
+.hcx-dl dt { color: var(--text-s); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.06em; padding-top: 2px; }
+.hcx-dl dd { color: var(--text-dk); word-break: break-word; white-space: pre-line; line-height: 1.55; }
+.hcx-vacio { color: var(--text-s); font-style: italic; }
+.hcx-nota { margin-top: 12px; font-size: 0.76rem; color: var(--text-s); }
+.hcx-solo-lectura { margin-bottom: 14px; padding: 10px 14px; border-radius: 12px; font-size: 0.8rem; background: rgba(28,28,28,0.06); color: var(--text-mid); }
+
+/* ── Formularios (usan la grilla .pac-form / .pac-f) ──────── */
+.hcx-form { margin-top: 4px; }
+.pac-f.err input, .pac-f.err select, .pac-f.err textarea { border-color: var(--rosa-d); box-shadow: 0 0 0 3px rgba(194,24,91,0.1); }
+.hcx-err { display: none; margin-top: 5px; font-size: 0.74rem; color: var(--rosa-d); }
+.pac-f.err .hcx-err { display: block; }
+.hcx-req { color: var(--rosa-d); }
+.hcx-form-act { display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+.hcx-form .alert { margin-top: 10px; }
+
+/* ── Sesiones: resumen, evolución y línea de tiempo ───────── */
+.hcx-minis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+.hcx-sesbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 18px 0 12px; }
+.hcx-sesbar select { width: auto; padding: 8px 14px; border-radius: 12px; border: 1.5px solid rgba(168,230,207,0.48); background: #fff; font-family: inherit; font-size: 0.82rem; }
+
+.hcx-evo { display: flex; flex-wrap: wrap; gap: 8px 6px; align-items: center; margin-top: 4px; }
+.hcx-evo-dot { width: 16px; height: 16px; border-radius: 50%; background: #d9d9d9; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(28,28,28,0.12); }
+.hcx-leyenda { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 12px; font-size: 0.74rem; color: var(--text-s); }
+.hcx-leyenda span::before { content: ''; display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; background: var(--c, #d9d9d9); vertical-align: -1px; }
+.t-mejoria     { --c: #6fcfa6; background-color: #6fcfa6; }
+.t-estable     { --c: #9cc7e8; background-color: #9cc7e8; }
+.t-dificultad  { --c: #f08fb5; background-color: #f08fb5; }
+.t-sin         { --c: #d9d9d9; background-color: #d9d9d9; }
+.hcx-leyenda .t-mejoria, .hcx-leyenda .t-estable, .hcx-leyenda .t-dificultad, .hcx-leyenda .t-sin { background: none; }
+
+.hcx-tl { list-style: none; position: relative; margin: 0; padding: 0 0 0 28px; }
+.hcx-tl::before { content: ''; position: absolute; left: 8px; top: 8px; bottom: 8px; width: 2px; background: rgba(168,230,207,0.7); }
+.hcx-tl-item { position: relative; margin-bottom: 12px; animation: fadeUp 0.25s ease both; }
+.hcx-tl-dot { position: absolute; left: -26px; top: 18px; width: 14px; height: 14px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 1px rgba(28,28,28,0.15); }
+.hcx-tl-card { background: rgba(255,255,255,0.95); border: 1px solid rgba(168,230,207,0.34); border-radius: 16px; overflow: hidden; }
+.hcx-tl-item.anulada .hcx-tl-card { opacity: 0.75; border-style: dashed; }
+.hcx-tl-head {
+  width: 100%; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; text-align: left;
+  padding: 13px 16px; border: none; background: transparent; cursor: pointer; font-family: inherit; color: var(--text-dk);
+}
+.hcx-tl-head:hover { background: rgba(168,230,207,0.12); }
+.hcx-tl-fecha { font-weight: 600; font-size: 0.9rem; }
+.hcx-tl-num { font-size: 0.76rem; color: var(--text-s); }
+.hcx-tl-tend { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 600; color: var(--text-mid); }
+.hcx-tl-tend .hcx-evo-dot { width: 11px; height: 11px; }
+.hcx-tl-resumen { flex: 1 1 100%; font-size: 0.8rem; color: var(--text-mid); order: 5; }
+.hcx-tl-item.anulada .hcx-tl-fecha { text-decoration: line-through; }
+.hcx-tl-flecha { margin-left: auto; transition: transform 0.2s; color: var(--text-s); }
+.hcx-tl-item.abierta .hcx-tl-flecha { transform: rotate(180deg); }
+.hcx-tl-body { display: none; padding: 4px 18px 16px; border-top: 1px solid rgba(168,230,207,0.3); }
+.hcx-tl-item.abierta .hcx-tl-body { display: block; }
+.hcx-tl-body .hcx-dl { margin-top: 12px; grid-template-columns: 150px 1fr; }
+.hcx-adenda { margin-top: 12px; padding: 10px 14px; border-radius: 12px; background: rgba(248,200,220,0.22); font-size: 0.82rem; white-space: pre-line; }
+.hcx-adenda small { display: block; color: var(--text-s); margin-bottom: 3px; }
+.hcx-tl-pie { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-top: 14px; font-size: 0.72rem; color: var(--text-s); }
+.hcx-tl-acc { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.hcx-vacio-box { text-align: center; padding: 34px 20px; color: var(--text-s); font-size: 0.9rem; }
+.hcx-vacio-box .btn-hc-new { margin-top: 14px; }
+
+/* ── Registro de modificaciones ───────────────────────────── */
+.hcx-audit { list-style: none; display: flex; flex-direction: column; gap: 6px; max-height: 320px; overflow-y: auto; font-size: 0.8rem; }
+.hcx-audit li { display: flex; flex-wrap: wrap; gap: 4px 12px; padding: 8px 12px; border-radius: 10px; background: rgba(168,230,207,0.12); }
+.hcx-audit time { color: var(--text-s); min-width: 130px; }
+
+/* ── Diálogo de confirmación propio ───────────────────────── */
+.hcx-ov { z-index: 700; }
+.hcx-dlg p { font-size: 0.9rem; line-height: 1.55; color: var(--text-mid); white-space: pre-line; }
+.hcx-dlg .pac-f { margin-top: 14px; grid-column: auto; }
+.hcx-dlg label.hcx-chk { display: flex; gap: 10px; align-items: flex-start; text-transform: none; letter-spacing: 0; font-size: 0.82rem; margin-top: 14px; cursor: pointer; }
+.hcx-dlg label.hcx-chk input { margin-top: 3px; }
+.btn-hc-new.peligro { background: var(--rosa-d); }
+
+/* ── Bloqueo de acceso ────────────────────────────────────── */
+.hcx-lock { max-width: 460px; margin: 12vh auto; text-align: center; padding: 34px 28px; }
+.hcx-lock h2 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.9rem; margin: 8px 0; }
+.hcx-lock p { font-size: 0.88rem; color: var(--text-s); margin-bottom: 18px; }
+
+/* ── Versión imprimible (oculta en pantalla) ──────────────── */
+#hcx-print { display: none; }
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 720px) {
+  .hcx-wrap { padding: 18px 12px 48px; }
+  .hcx-dl, .hcx-tl-body .hcx-dl { grid-template-columns: 1fr; gap: 2px; }
+  .hcx-dl dd { margin-bottom: 8px; }
+  .hcx-minis { grid-template-columns: 1fr 1fr; }
+  .hcx-head { padding: 16px; }
+  .hcx-head h1 { font-size: 1.5rem; }
+  .hcx-card { padding: 16px; }
+  .hcx-row-act { width: 100%; }
+  .hcx-row-act button { width: 100%; }
+}
+
+/* ── Impresión ────────────────────────────────────────────── */
+@media print {
+  @page { margin: 16mm; }
+  body > *:not(#hcx-print) { display: none !important; }
+  body { background: #fff !important; }
+  #hcx-print { display: block !important; font-family: 'DM Sans', Arial, sans-serif; color: #111; font-size: 11pt; line-height: 1.5; }
+  #hcx-print h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 20pt; font-weight: 600; margin: 0 0 2pt; }
+  #hcx-print h2 { font-size: 12pt; margin: 16pt 0 6pt; padding-bottom: 3pt; border-bottom: 1px solid #999; break-after: avoid; }
+  #hcx-print .pr-sub { color: #555; font-size: 10pt; margin-bottom: 8pt; }
+  #hcx-print .pr-conf { border: 1px solid #999; padding: 6pt 8pt; font-size: 9pt; margin: 8pt 0; }
+  #hcx-print dl { display: grid; grid-template-columns: 38mm 1fr; gap: 3pt 10pt; margin: 0; }
+  #hcx-print dt { color: #555; font-size: 9pt; text-transform: uppercase; }
+  #hcx-print dd { margin: 0; white-space: pre-line; }
+  #hcx-print .pr-ses { break-inside: avoid; margin-bottom: 10pt; padding: 6pt 8pt; border: 1px solid #ccc; }
+  #hcx-print .pr-ses h3 { font-size: 11pt; margin: 0 0 4pt; }
+  #hcx-print .pr-firma { margin-top: 40pt; width: 70mm; border-top: 1px solid #111; padding-top: 3pt; font-size: 9pt; }
+  #hcx-print .pr-pie { margin-top: 18pt; font-size: 8.5pt; color: #555; }
+}
